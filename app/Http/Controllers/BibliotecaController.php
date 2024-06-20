@@ -9,6 +9,7 @@ class BibliotecaController extends Controller
 {
     public function index(){
         $bibliotecas = Biblioteca::all();
+        $bibliotecas = Biblioteca::orderBy('id', 'desc')->get();
         return view('/Biblioteca.indexBiblioteca', compact('bibliotecas'));
     }
 

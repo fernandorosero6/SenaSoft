@@ -14,8 +14,7 @@ class CopiaLibroController extends Controller
     public function create(Request $request){
         $estanteriaId = $request->input('estanteria');
         $estanteria = Estanteria::findOrFail($estanteriaId);
-
-        return view('/CopiaLibro.createCopiaLibro', compact('estanteria'));
+        return view('/CopiaLibro.createCopiaLibro', compact('estanteria', 'copiaLibro'));
     }
 
     public function store(Request $request){
