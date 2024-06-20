@@ -13,4 +13,8 @@ class Biblioteca extends Model
     public function estanterias(){
         return $this->hasMany(Estanteria::class);
     }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

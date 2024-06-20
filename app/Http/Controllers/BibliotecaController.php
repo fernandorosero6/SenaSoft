@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Biblioteca;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BibliotecaController extends Controller
 {
     public function index(){
-        $bibliotecas = Biblioteca::all();
-        $bibliotecas = Biblioteca::orderBy('id', 'desc')->get();
-        return view('/Biblioteca.indexBiblioteca', compact('bibliotecas'));
+        $bibliotecas = Biblioteca::where('user_id', Auth::id())->orderBy('id', 'desc')->get();
+
+        // Retornar la vista con las bibliotecas filtradas
+        return view('Biblioteca.indexBiblioteca', compact('bibliotecas'));
     }
 
     public function create(){
@@ -22,6 +24,7 @@ class BibliotecaController extends Controller
         $bibliotecas->nombre = $request->nombre;
         $bibliotecas->ubicacion = $request->ubicacion;
         $bibliotecas->descripcion = $request->descripcion;
+        $bibliotecas->user_id = Auth::id();
         $bibliotecas->save();
         return redirect()->route('biblioteca.index');
     }
